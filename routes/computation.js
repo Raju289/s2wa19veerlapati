@@ -1,32 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET computation page. */
-router.get('/', function (req, res, next) {
-  var x;
-  //var random = Math.random() * (3) + (-1);
-  var random = Math.random();
-  console.log(req.query.x);
-  x = req.query.x;
-
-  // checking if url has params
-  if (x == undefined) {
-    x = random;
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  const x= req.query.x || getRandomArbitrary(0, 60);
+  var y1 = Math.fround(x);
+  var y2 = Math.random(x);
+  var y3 = Math.round(x);
+  function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
-
-
-  
-  let fround = Math.fround(x)
-  let random =Math.random(x)
-  let round = Math.round(x)
-  
-  res.render('computation', {
-    title: 'Computation',
-    v1: `applied to ` + x + ` is ` + fround ,
-    v2: `applied to ` + x + ` is ` + random,
-    v3: `applied to ` + x + ` is ` + round,
-    
-  });
+  res.send(`Math.fround(${x}) is ${y1} ; Math.random(${x}) is ${y2} ; Math.round(${x}) is ${y3}\n`);
 });
 
 module.exports = router;
